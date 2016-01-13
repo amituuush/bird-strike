@@ -1,0 +1,13 @@
+Deliverables
+
+•landing page background -- game background? (test different screen sizes)
+•test score system
+•connect landing page to game
+•change ground image?
+•test on different browsers
+•test responsiveness
+•enable touch on smartphones
+•user test game
+•add countdown?
+•clouds slowly move in bg
+•message before start saying to click?

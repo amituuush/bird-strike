@@ -1,0 +1,246 @@
+@import "normalize";
+@import "bourbon/bourbon";
+@import "neat/neat";
+
+@import url(https://fonts.googleapis.com/css?family=Passion+One:400,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
+
+$mobile: 'min-width: 480px';
+$tablet: 'min-width: 768px';
+$desktop: 'min-width: 1024px';
+
+$bp-small: 'min-width: 24em';
+$bp-med: 'min-width: 46.8em';
+$bp-large: 'min-width: 50em';
+$bp-xl: 'min-width: 73em';
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+/*-----------------------------------*/
+$flappy-font: 'Passion One', cursive;
+$sans-font: 'Open Sans', sans-serif;
+$thin: 300;
+$thicker: 400;
+$thick: 600;
+$lg-font: 4em;
+$text-center: center;
+$button-color: #00AFF0;
+$button-hover: lighten($button-color, 4%);
+$blue: #0A7B83;
+$green: #2AA876;
+$green-dark: darken($green, 17%);
+$yellow: #FFD265;
+$orange: #F19C65;
+$red: #CE4D45;
+
+body {
+
+  background: url('../img/sky-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  @media screen and (min-width: 480px) {
+    background: url('../img/sky-bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  @media screen and (min-width: 768px) {
+    background: url('../img/sky-bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  @media screen and (min-width: 960px) {
+    background: url('../img/sky-bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+
+}
+
+container > img {
+  position: absolute;
+  height: 100%;
+}
+
+header {
+  img {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 2.5em;
+    position: relative;
+    right: 8em;
+    padding-top: 7em;
+  }
+
+  h1 {
+  font-family: $sans-font;
+  font-size: $lg-font;
+  text-align: $text-center;
+  margin-top: 0;
+  font-weight: 300;
+  color: $yellow;
+  margin-bottom: 1.5em;
+  text-shadow: 0px 2px 10px #000;
+  }
+}
+
+section {
+
+  div.play-button {
+    text-align: center;
+
+    opacity: 1;
+    width: 17em;
+    height: 8em;
+    margin: 0 auto;
+    position: relative;
+    padding-top: 2em;
+
+
+
+
+    a {
+    font-family: $sans-font;
+    font-weight: $thin;
+    font-size: 2.5em;
+    text-decoration: none;
+    background-color: $green;
+    color: #fff;
+    padding: 0.7em 2.4em;
+    border-radius: 25px;
+    box-shadow: 0px 2px 3px #000;
+
+
+
+    &:hover {
+      background-color: lighten($green, 4%);
+    }
+
+    &:active {
+      background-color: darken($green, 10%);
+      box-shadow: inset 0px 0px 1px #000;
+      color: darken(#fff, 30%);
+    }
+
+    }
+  }
+
+}
+
+
+/*-----------------------------------*/
+.container {
+    width: 100%;
+    @media screen and ($bp-small) {
+        width: 90%;
+        max-width: 40em;
+        margin: 0 auto;
+    }
+
+    }
+
+
+section {
+    width: 100%;
+    @media screen and ($bp-small) {
+        width: 50%;
+        max-width: $bp-small;
+        margin: 0 auto;
+    }
+
+
+}
+
+/*How to Play----------------------------
+---------------------------------------*/
+.tooltip-item {
+  $base-border-color: gainsboro !default;
+  $base-border-radius: 12px !default;
+  $base-line-height: 1.5em !default;
+  $dark-gray: #333 !default;
+  $base-font-color: $dark-gray !default;
+  $tooltip-background: #00AFF0;
+  $tooltip-color: $base-font-color;
+  $tooltip-max-width: 16em;
+  $tooltip-arrow-width: 8px;
+  $tooltip-shadow: 0 2px 2px silver;
+  $tooltip-distance-from-item: 3em;
+  $tooltip-arrow-distance-from-box: 4.98em;
+
+  background: $green-dark;
+  border-radius: 8px;
+
+  display: inline-block;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  position: relative;
+  text-align: center;
+  color: darken(#fff,20%);
+  font-weight: 100;
+  width: 9em;
+  font-size: 1em;
+
+  margin: 0 auto;
+
+  &:focus,
+  &:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &:hover {
+    cursor: help;
+    background: darken($green, 10%);
+  }
+
+  #triangle {
+    margin-left: 15px;
+    font-size: 0.75em;
+    color: #2AA876;
+    text-shadow: 0px 1px 1px lighten(#000, 15%);
+  }
+
+  .tooltip {
+    @include position(absolute, $tooltip-distance-from-item 0 null -2.5em);
+    @include transition (all 0.3s ease-in-out);
+    background-color: $green-dark;
+    background: $green-dark;
+    border-radius: $base-border-radius;
+    box-shadow: -1px 1px 1px lighten(#000, 10%);
+    color: $tooltip-color;
+    font-size: 1em; // Make sure you use -webkit-backface-visibility: hidden; on the body element to prevent 1px nudging bugs.
+    line-height: 1.5em;
+    margin: 0 auto 0 auto;
+    max-width: $tooltip-max-width;
+    opacity: 0;
+    padding: 1em;
+    text-align: center;
+    visibility: hidden;
+    z-index: 10;
+    overflow: visible;
+    width: 15em;
+
+    p {
+      color: #fff;
+      line-height: $base-line-height;
+      margin: 0;
+    }
+
+    &:after {
+      @include position(absolute, null 0 null 0);
+      border: $tooltip-arrow-width solid transparent;
+      bottom: $tooltip-arrow-distance-from-box;
+      color: $green-dark;
+      content: '▲';
+      font-size: 1.4em;
+      margin-left: -$tooltip-arrow-width;
+      text-align: center;
+      text-shadow: 0px -1px 1px lighten(#000, 10%);
+    }
+  }
+}

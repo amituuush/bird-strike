@@ -1,0 +1,40 @@
+{
+  "name": "flappy-bird",
+  "version": "1.0.0",
+  "description": "flappy bird game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amituuush/flappy-bird-landing-page.git"
+  },
+  "author": "Amit Ranan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amituuush/flappy-bird-landing-page/issues"
+  },
+  "homepage": "https://github.com/amituuush/flappy-bird-landing-page#readme",
+  "devDependencies": {
+    "browserify": "^11.2.0",
+    "gulp": "^3.9.0",
+    "gulp-bower": "0.0.10",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-livereload": "^3.8.1",
+    "gulp-minify-html": "^1.0.4",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.4",
+    "gulp-uglify": "^1.4.2",
+    "gulp-util": "^3.0.7",
+    "node-bourbon": "^4.2.3",
+    "node-neat": "^1.7.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
