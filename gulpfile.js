@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-
 var jshint = require('gulp-jshint');
 var sass = require('gulp-sass');
 var imagemin = require('gulp-imagemin');
@@ -16,11 +15,11 @@ var plumber = require('gulp-plumber');
 var notify = require("gulp-notify");
 
 
-// JavaScript linting task
 gulp.task('jshint', function() {
   return gulp.src([
-    'app/**/*.js',
-    'site/**/*.js'])
+    'app/js/**/*.js',
+    'site/js/*.js',
+    '!app/js/app.js'])
     .pipe(plumber({
       errorHandler: reportError
       }))
@@ -29,16 +28,33 @@ gulp.task('jshint', function() {
 
 });
 
-// Compile Sass task
-gulp.task('sass', function() {
+// Styles build task, concatenates all the files
+gulp.task('styles', function() {
+  return gulp.src(['site/scss/*.scss', 'app/scss/*.scss'])
+    .pipe(concat('stylesheet.scss'))
+    .pipe(gulp.dest('scss'));
+});
+
+gulp.task('sass1', function() {
   return gulp.src('site/scss/*.scss')
     .pipe(plumber({
       errorHandler: reportError
       }))
     .pipe(sass()).on('error', reportError)
 //    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('site/css'))
-    .pipe(livereload());
+    .pipe(gulp.dest('css'))
+    // .pipe(livereload());
+});
+
+gulp.task('sass2', function() {
+  return gulp.src('app/scss/*.scss')
+    .pipe(plumber({
+      errorHandler: reportError
+      }))
+    .pipe(sass()).on('error', reportError)
+//    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('css'))
+    // .pipe(livereload());
 });
 
 var reportError = function (error) {
@@ -87,65 +103,68 @@ gulp.task('watch', function() {
 gulp.task('html', function() {
   return gulp.src('site/index.html')
     .pipe(minifyHTML())
-    .pipe(gulp.dest('build/'));
+    .pipe(gulp.dest('../index.html'));
+});
+
+gulp.task('html', function() {
+  return gulp.src('app/game.html')
+    .pipe(minifyHTML())
+    .pipe(gulp.dest('bird-strike/'));
 });
 
 // Combines all js files and sends to site/js
 gulp.task('scripts-combine', function() {
   return browserify([
-    'site/js/main.js',
-    'site/js/flappy_bird.js',
-    'site/js/components/graphics/bird.js',
-    'site/js/components/graphics/pipe.js',
-    'site/js/components/physics/physics.js',
-    'site/js/components/physics/physics.js',
-    'site/js/components/collision/circle.js',
-    'site/js/components/collision/rect.js',
-    'site/js/entities/bird.js',
-    'site/js/entities/pipe.js',
-    'site/js/entities/ceiling.js',
-    'site/js/entities/floor.js',
-    'site/js/entities/ground.js',
-    'site/js/entities/counter.js',
-    'site/js/systems/graphics.js',
-    'site/js/systems/input.js',
-    'site/js/systems/physics.js',
-    'site/js/systems/collision.js',
-    'site/js/systems/pipesystem.js',
-    'site/js/systems/scoresystem.js',
+      'app/js/**',
+      'site/js/*.js',
+      '!app/js/app.js'
+    // 'app/js/main.js',
+    // 'app/js/flappy_bird.js',
+    // 'app/js/components/graphics/bird.js',
+    // 'app/js/components/graphics/pipe.js',
+    // 'app/js/components/physics/physics.js',
+    // 'app/js/components/collision/circle.js',
+    // 'app/js/components/collision/rect.js',
+    // 'app/js/entities/bird.js',
+    // 'app/js/entities/pipe.js',
+    // 'app/js/entities/ceiling.js',
+    // 'app/js/entities/floor.js',
+    // 'app/js/entities/ground.js',
+    // 'app/js/entities/counter.js',
+    // 'app/js/systems/graphics.js',
+    // 'app/js/systems/input.js',
+    // 'app/js/systems/physics.js',
+    // 'app/js/systems/collision.js',
+    // 'app/js/systems/pipesystem.js',
+    // 'app/js/systems/scoresystem.js',
     ])
+    .pipe(buffer())
+    .pipe(uglify())
     .bundle()
     .pipe(source('app.js'))
-    .pipe(gulp.dest('site/js'))
+    .pipe(gulp.dest('bird-strike/'))
 });
 
 
 // JavaScript build task, removes whitespace and concatenates all files, sends to build/js
-gulp.task('scripts', function() {
-  return gulp.src('site/js/app.js')
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(gulp.dest('build/js'));
-});
-
-// Styles build task, concatenates all the files
-gulp.task('styles', function() {
-  return gulp.src('site/css/*.css')
-    .pipe(concat('styles.css'))
-    .pipe(gulp.dest('build/css'));
-});
+// gulp.task('scripts', function() {
+//   return gulp.src('site/js/app.js')
+//     .pipe(buffer())
+//     .pipe(uglify())
+//     .pipe(gulp.dest('build/js'));
+// });
 
 
-// Image optimization task
+// Image optimization task - WORKING
 gulp.task('images', function() {
-  return gulp.src('site/img/*')
+  return gulp.src(['site/img/*', 'app/img/*'])
     .pipe(imagemin())
-    .pipe(gulp.dest('build/img'));
+    .pipe(gulp.dest('img'));
 });
 
 // HTML Reload task
 gulp.task('html-reload', function() {
-  return gulp.src('site/index.html')
+  return gulp.src('index.html')
     .pipe(livereload());
   });
 
@@ -154,4 +173,4 @@ gulp.task('default', ['jshint', 'sass', 'watch']);
 
 
 // Build task
-gulp.task('build', ['jshint', 'sass', 'html', 'scripts', 'scripts-combine', 'styles', 'images']);
+gulp.task('build', ['jshint', 'sass', 'html', 'scripts-combine', 'styles', 'images']);
