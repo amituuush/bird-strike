@@ -65,6 +65,7 @@ div#scoreboard {
     margin: 2em 0em 0em 2em;
     background: lighten($red, 12%);
     padding: 0.5em 0.5em 0.5em 0.5em;
+    display: none;
 }
 
 p#pipes {
@@ -194,7 +195,7 @@ div#pipes {
 
 #start-button {
   text-align: center;
-  margin: 7em auto 0 auto;
+  margin: 12.5em auto 0 auto;
   position: relative;
   padding-top: 1em;
   font-family: $sans-font;

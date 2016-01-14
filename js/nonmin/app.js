@@ -632,18 +632,18 @@ var background = require('./entities/background');
 var counter = require('./entities/counter');
 
 var FlappyBird = function() {
-    this.entities = [new bird.Bird(), new ceiling.Ceiling(), new floor.Floor(), new ground.Ground(), new background.Background(), new counter.Counter()];
+    this.entities = [new bird.Bird(), new ceiling.Ceiling(), new floor.Floor(), new ground.Ground(), new counter.Counter()];
     this.graphics = new graphicsSystem.GraphicsSystem(this.entities);
     this.physics = new physicsSystem.PhysicsSystem(this.entities);
     this.input = new inputSystem.InputSystem(this.entities);
     this.pipes = new pipeSystem.PipeSystem(this.entities);
     this.scores = new scoreSystem.ScoreSystem(this.entities, 0);
     this.ground = new groundSystem.GroundSystem(this.entities);
-    this.background = new backgroundSystem.BackgroundSystem(this.entities);
+    // this.background = new backgroundSystem.BackgroundSystem(this.entities);
     this.playing = true;
     this.highScore = 0;
 };
-
+ // removed ', new background.Background()'
 
 FlappyBird.prototype.run = function() {
     this.graphics.run();
@@ -651,13 +651,13 @@ FlappyBird.prototype.run = function() {
     this.input.run();
     this.ground.run();
     this.pipes.run();
-    this.background.run();
+    // this.background.run();
 };
 
 FlappyBird.prototype.stop = function() {
     this.ground.stop();
     this.pipes.stop();
-    this.background.stop();
+    // this.background.stop();
 };
 
 FlappyBird.prototype.updateScore = function() {

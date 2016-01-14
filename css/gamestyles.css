@@ -32,7 +32,8 @@ div#scoreboard {
   border-radius: 5px;
   margin: 2em 0em 0em 2em;
   background: #db7b75;
-  padding: 0.5em 0.5em 0.5em 0.5em; }
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  display: none; }
 
 p#pipes {
   color: #e6e6e6;
@@ -154,7 +155,7 @@ div#pipes {
 
 #start-button {
   text-align: center;
-  margin: 7em auto 0 auto;
+  margin: 12.5em auto 0 auto;
   position: relative;
   padding-top: 1em;
   font-family: "Open Sans", sans-serif;

@@ -407,7 +407,7 @@ header h1 {
   font-weight: 300;
   color: #FFD265;
   margin-bottom: 1.5em;
-  text-shadow: 0px 2px 10px #000; }
+  text-shadow: 0px 0px 2px #000; }
 
 section div.play-button {
   text-align: center;
