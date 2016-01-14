@@ -29,13 +29,13 @@ gulp.task('jshint', function() {
 });
 
 // Styles build task, concatenates all the files
-gulp.task('styles', function() {
-  return gulp.src(['site/scss/*.scss', 'app/scss/*.scss'])
-    .pipe(concat('stylesheet.scss'))
-    .pipe(gulp.dest('scss'));
-});
+// gulp.task('styles', function() {
+//   return gulp.src(['site/scss/*.scss', 'app/scss/*.scss'])
+//     .pipe(concat('stylesheet.scss'))
+//     .pipe(gulp.dest('scss'));
+// });
 
-gulp.task('sass1', function() {
+gulp.task('sass-site', function() {
   return gulp.src('site/scss/*.scss')
     .pipe(plumber({
       errorHandler: reportError
@@ -46,7 +46,7 @@ gulp.task('sass1', function() {
     // .pipe(livereload());
 });
 
-gulp.task('sass2', function() {
+gulp.task('sass-game', function() {
   return gulp.src('app/scss/*.scss')
     .pipe(plumber({
       errorHandler: reportError
@@ -88,74 +88,81 @@ var reportError = function (error) {
     this.emit('end');
 }
 
-// Watch task
-gulp.task('watch', function() {
-  livereload.listen();
-  gulp.watch([
-    'site/js/**/*.js',
-    '!site/js/app.js'], ['jshint', 'scripts-combine']);
-  gulp.watch('site/scss/*.scss', ['sass']);
-  gulp.watch('site/index.html', ['html-reload']);
-});
-
 
 // Minify index
-gulp.task('html', function() {
+gulp.task('html-site', function() {
   return gulp.src('site/index.html')
     .pipe(minifyHTML())
-    .pipe(gulp.dest('../index.html'));
+    .pipe(gulp.dest(''));
 });
 
-gulp.task('html', function() {
+gulp.task('html-game', function() {
   return gulp.src('app/game.html')
     .pipe(minifyHTML())
-    .pipe(gulp.dest('bird-strike/'));
+    .pipe(gulp.dest(''));
 });
 
 // Combines all js files and sends to site/js
-gulp.task('scripts-combine', function() {
+gulp.task('scripts-combine-game', function() {
   return browserify([
-      'app/js/**',
-      'site/js/*.js',
-      '!app/js/app.js'
-    // 'app/js/main.js',
-    // 'app/js/flappy_bird.js',
-    // 'app/js/components/graphics/bird.js',
-    // 'app/js/components/graphics/pipe.js',
-    // 'app/js/components/physics/physics.js',
-    // 'app/js/components/collision/circle.js',
-    // 'app/js/components/collision/rect.js',
-    // 'app/js/entities/bird.js',
-    // 'app/js/entities/pipe.js',
-    // 'app/js/entities/ceiling.js',
-    // 'app/js/entities/floor.js',
-    // 'app/js/entities/ground.js',
-    // 'app/js/entities/counter.js',
-    // 'app/js/systems/graphics.js',
-    // 'app/js/systems/input.js',
-    // 'app/js/systems/physics.js',
-    // 'app/js/systems/collision.js',
-    // 'app/js/systems/pipesystem.js',
-    // 'app/js/systems/scoresystem.js',
+    'app/js/main.js',
+    'app/js/flappy_bird.js',
+    'app/js/components/collision/circle.js',
+    'app/js/components/collision/rect.js',
+    'app/js/components/collision/counter.js',
+    'app/js/components/graphics/background.js',
+    'app/js/components/graphics/bird.js',
+    'app/js/components/graphics/ceiling.js',
+    'app/js/components/graphics/counter.js',
+    'app/js/components/graphics/floor.js',
+    'app/js/components/graphics/ground.js',
+    'app/js/components/graphics/pipe.js',
+    'app/js/components/physics/physics.js',
+    'app/js/entities/background.js',
+    'app/js/entities/bird.js',
+    'app/js/entities/ceiling.js',
+    'app/js/entities/counter.js',
+    'app/js/entities/floor.js',
+    'app/js/entities/ground.js',
+    'app/js/entities/pipe.js',
+    'app/js/systems/backgroundsystem.js',
+    'app/js/systems/collision.js',
+    'app/js/systems/graphics.js',
+    'app/js/systems/groundsystem.js',
+    'app/js/systems/input.js',
+    'app/js/systems/physics.js',
+    'app/js/systems/pipesystem.js',
+    'app/js/systems/scoresystem.js'
     ])
-    .pipe(buffer())
-    .pipe(uglify())
     .bundle()
     .pipe(source('app.js'))
-    .pipe(gulp.dest('bird-strike/'))
+    .pipe(gulp.dest('js/nonmin'))
+});
+
+gulp.task('scripts-combine-site', function() {
+  return browserify('site/js/app.js')
+    .bundle()
+    .pipe(source('site.js'))
+    .pipe(gulp.dest('js/nonmin'))
+});
+
+// JavaScript build task, removes whitespace and concatenates all files, sends to build/js
+gulp.task('scripts-game', function() {
+  return gulp.src('js/nonmin/app.js')
+    .pipe(buffer())
+    .pipe(uglify())
+    .pipe(gulp.dest('js'));
+});
+
+gulp.task('scripts-site', function() {
+  return gulp.src('js/nonmin/site.js')
+    .pipe(buffer())
+    .pipe(uglify())
+    .pipe(gulp.dest('js'));
 });
 
 
-// JavaScript build task, removes whitespace and concatenates all files, sends to build/js
-// gulp.task('scripts', function() {
-//   return gulp.src('site/js/app.js')
-//     .pipe(buffer())
-//     .pipe(uglify())
-//     .pipe(gulp.dest('build/js'));
-// });
-
-
-// Image optimization task - WORKING
+// Image optimization task
 gulp.task('images', function() {
   return gulp.src(['site/img/*', 'app/img/*'])
     .pipe(imagemin())
@@ -168,9 +175,20 @@ gulp.task('html-reload', function() {
     .pipe(livereload());
   });
 
+
+// Watch task
+gulp.task('watch', function() {
+livereload.listen();
+gulp.watch([
+  'site/js/**/*.js',
+  '!site/js/app.js'], ['jshint', 'scripts-combine']);
+gulp.watch('site/scss/*.scss', ['sass']);
+gulp.watch('site/index.html', ['html-reload']);
+});
+
 // Default task
 gulp.task('default', ['jshint', 'sass', 'watch']);
 
 
 // Build task
-gulp.task('build', ['jshint', 'sass', 'html', 'scripts-combine', 'styles', 'images']);
+gulp.task('build', ['jshint', 'sass-site', 'sass-game', 'html-site', 'html-game', 'scripts-combine-site', 'scripts-combine-game', 'images', 'scripts-site', 'scripts-game']);
