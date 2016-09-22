@@ -19,7 +19,7 @@ Objective: Fly around while avoiding incoming pipes!
 One of the biggest challenges of this project was building the physics and collision components as I had to refresh my memory on several geometry concepts. For example, when calculating whether a collision is made between a bird and a pipe, I only knew the x and y coordinates, and sizes of the bird and pipe. Using this information I could calculate the distance between the center of the circle and the closest point of the pipe to the circle using Pythagorean theorem. I'd then compare this to radius to determine whether. If the radius is greater than the distance between the center of the circle and the closest point of the pipe, then a collision has occurred. Otherwise, no collision.
 <br />
 
-<img src="img/bird-strike-start-screen.png" style="width: 400px" />
+<img src="img/bird-strike-start-screen.jpg" style="width: 400px" />
 
 <br /><br />
 ## Development Roadmap
