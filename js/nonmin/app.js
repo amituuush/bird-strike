@@ -133,27 +133,6 @@ RectCollisionComponent.prototype.collideCircle = function(entity) {
     return entity.components.collision.collideRect(this.entity);
 };
 
-// RectCollisionComponent.prototype.collideRect = function(entity) {
-//     var positionA = this.entity.components.physics.position;
-//     var positionB = entity.components.physics.position;
-//
-//     var sizeA = this.size;
-//     var sizeB = entity.components.collision.size;
-//
-//     var leftA = positionA.x - sizeA.x / 2;
-//     var rightA = positionA.x + sizeA.x / 2;
-//     var bottomA = positionA.y - sizeA.y / 2;
-//     var topA = positionA.y + sizeA.y / 2;
-//
-//     var leftB = positionB.x - sizeB.x / 2;
-//     var rightB = positionB.x + sizeB.x / 2;
-//     var bottomB = positionB.y - sizeB.y / 2;
-//     var topB = positionB.y + sizeB.y / 2;
-//
-//     return !(leftA > rightB || leftB > rightA ||
-//              bottomA > topB || bottomB > topA);
-// };
-
 exports.RectCollisionComponent = RectCollisionComponent;
 
 },{}],4:[function(require,module,exports){
@@ -198,8 +177,6 @@ var BirdGraphicsComponent = function(entity) {
     this.height = 0.1;
     this.tickCount = 0;
     this.frameIndex = 0;
-    // this.ticksPerFrame = this.ticksPerFrame || 0;
-    // this.numberOfFrames = this.numberOfFrames || 1;
 };
 
 BirdGraphicsComponent.prototype.draw = function(context) {
@@ -219,22 +196,6 @@ BirdGraphicsComponent.prototype.draw = function(context) {
     if (this.frameIndex === 16) {
         this.frameIndex = 0;
     }
-
-
-    // context.save();
-    // context.translate(position.x, position.y);
-    // context.scale(1, -1);
-    // context.translate(-0.05, -0.05);
-    // context.drawImage(this.image, 0, 0, 0.1, 0.1);
-    // context.restore();
-
-    // context.save();
-    // context.translate(position.x, position.y);
-    // context.beginPath();
-    // context.arc(0, 0, 0.0275, 0, 2 * Math.PI);
-    // context.fill();
-    // context.closePath();
-    // context.restore();
 };
 
 exports.BirdGraphicsComponent = BirdGraphicsComponent;
